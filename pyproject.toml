@@ -1,0 +1,95 @@
+[project]
+name = "ptt"
+description = ""
+authors = [
+    {name = "Alexander Lavrov", email = "admin@egnod.dev"},
+]
+dependencies = [
+]
+requires-python = ">=3.10,<3.12"
+license = {text = "EULA"}
+dynamic = ["version"]
+
+[project.urls]
+
+[project.optional-dependencies]
+
+[tool.pdm.build]
+includes = []
+
+[tool.pdm.scripts]
+add = "git add ."
+lint = "pre-commit run -a"
+all = {composite = ["add", "lint"]}
+
+[build-system]
+requires = ["pdm-pep517==1.0.4"]
+build-backend = "pdm.pep517.api"
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = true
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = true
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 95
+exclude = ["setup.py", "docs", "build"]
+ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
+verbose = 0
+quiet = false
+whitelist-regex = []
+color = true
+omit-covered-files = false
+
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+target-version = ['py311']
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | migrations
+  )
+)
+'''
+
+[tool.isort]
+known_first_party = "ptt"
+line_length = 120
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+use_parentheses = true
+
+[tool.pycln]
+all = true
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+no_site_packages = true
+strict_optional = false
+strict = true
+allow_subclassing_any = true
+allow_untyped_calls = true
+pretty = true
+show_error_codes = true
+implicit_reexport = true
+allow_untyped_decorators = true
+warn_return_any = false
+disable_error_code = ["valid-type", "call-arg"]
